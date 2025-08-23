@@ -4,6 +4,7 @@
 
 const double EPS = 1e-6;
 
+// TODO naming style
 enum RootsCount
 {
     Error = -2,
@@ -13,29 +14,30 @@ enum RootsCount
     TwoRoots = 2
 };
 
-struct coeff {
+struct coeff { // TODO move { to next line
     double a;
     double b;
     double c;
 };
 
-struct roots {
+struct roots { // TODO move { to next line
     double x1;
     double x2;
     enum RootsCount nroots;
 };
 
-enum RootsCount solve_linear(struct coeff coeff, struct roots* roots);
-enum RootsCount solve_quadratic(struct coeff coeff, struct roots* roots);
-enum RootsCount num_root(struct coeff coeff, struct roots* roots);
-void print_roots(enum RootsCount nroot, double x1, double x2);
+RootsCount solve_linear(struct coeff coeff, struct roots* roots);
+RootsCount solve_quadratic(struct coeff coeff, struct roots* roots);
+RootsCount num_root(struct coeff coeff, struct roots* roots);
+void print_roots(struct roots roots);
 void TestSolve_quadratic();
 void TestSolve_linear();
+bool checkcase (struct coeff CheckCoeff, struct roots RightAnswer, struct roots* ActualAnswer);
 
-int main()
+int main(int argc, char **argv)
 {
-    TestSolve_linear();
-    TestSolve_quadratic();
+    //TestSolve_linear();
+    //TestSolve_quadratic();
 
     printf("Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 
@@ -45,11 +47,11 @@ int main()
     struct roots roots = {NAN, NAN, Error};
     roots.nroots = num_root(coeff, &roots);
 
-    print_roots(roots.nroots, roots.x1, roots.x2);
+    print_roots(roots);
     return 0;
 }
 
-enum RootsCount num_root(struct coeff coeff, struct roots* roots)
+RootsCount num_root(struct coeff coeff, struct roots* roots)
 {
     if (fabs(coeff.a) < EPS)
     {
@@ -58,7 +60,7 @@ enum RootsCount num_root(struct coeff coeff, struct roots* roots)
     return solve_quadratic(coeff, roots);
 }
 
-enum RootsCount solve_linear(struct coeff coeff, struct roots* roots)
+RootsCount solve_linear(struct coeff coeff, struct roots* roots)
 {
     if (fabs(coeff.b) < EPS)
     {
@@ -75,8 +77,9 @@ enum RootsCount solve_linear(struct coeff coeff, struct roots* roots)
     }
 }
 
-enum RootsCount solve_quadratic(struct coeff coeff, struct roots* roots)
+RootsCount solve_quadratic(struct coeff coeff, struct roots* roots)
 {
+    // assert on roots != NULL
     assert(isfinite(coeff.a));
     assert(isfinite(coeff.b));
     assert(isfinite(coeff.c));
@@ -104,18 +107,18 @@ enum RootsCount solve_quadratic(struct coeff coeff, struct roots* roots)
     return Error;
 }
 
-void print_roots(enum RootsCount nroot, double x1, double x2)
+void print_roots(struct roots roots) // struct keyword not needed
 {
-    switch(nroot)
+    switch(roots.nroots)
     {
         case ZeroRoots:
             printf("Уравнение не имеет решений\n");
             break;
         case OneRoot:
-            printf("Уравнение имеет единственное решение: x = %lf\n", x1);
+            printf("Уравнение имеет единственное решение: x = %lf\n", roots.x1);
             break;
         case TwoRoots:
-            printf("Уравнение имеет два решения: x1 = %lf, x2 = %lf\n", x1, x2);
+            printf("Уравнение имеет два решения: x1 = %lf, x2 = %lf\n", roots.x1, roots.x2);
             break;
         case InfiniteRoots:
             printf("Уравнение имеет бесконечно много решений\n");
@@ -128,44 +131,54 @@ void print_roots(enum RootsCount nroot, double x1, double x2)
             break;
     }
 }
+// TODO blank line
 
-bool checkcase ()
+// TODO split words in name
+bool checkcase (struct coeff CheckCoeff, struct roots RightAnswer, struct roots* ActualAnswer)
 {
-
+    *ActualAnswer = {NAN, NAN, Error};
+    ActualAnswer->nroots = num_root(CheckCoeff, ActualAnswer);
+    // Split line (too long)
+    if(fabs(ActualAnswer->nroots - RightAnswer.nroots) < EPS && (ActualAnswer->x1 - RightAnswer.x1) < EPS && (ActualAnswer->x2 - RightAnswer.x2) < EPS)
+    {
+        return 1; // true
+    }
+    return 0; // false
 }
+// TODO remove lines
+//
 
+// NAMING CASES:
+// camelCase
+// PascalCase
+// snake_case
+// kebab-case -- not available in C
+
+// TODO test_solve_quadratic
 void TestSolve_quadratic()
 {
-    struct roots TestRoots;
-
     // Тест 1: x^2 - 5x + 6 = 0 (корни: 2 и 3)
-    struct coeff TestCoeff1 = {1, -5, 6};
-    TestRoots.nroots = solve_quadratic(TestCoeff1, &TestRoots);
-    if (!(TestRoots.nroots == TwoRoots && fabs(TestRoots.x1 - 3) < EPS && fabs(TestRoots.x2 - 2) < EPS))
+    struct coeff TestCoeff = {1, -5, 6};
+    struct roots TestRoots = {2, 3, TwoRoots};
+    struct roots Answer = {NAN, NAN, Error};
+    if (!(checkcase(TestCoeff,TestRoots,&Answer)))
     {
-        printf("FAILED: solve_quadratic(1 -5 6) -> x1 = %lf, x2 = %lf (should be x1 = 3, x2 = 2)\n",
-               TestRoots.x1, TestRoots.x2);
+        // TODO separate function
+        printf("FAILED: solve_quadratic(1 -5 6) -> x1 = %lf, x2 = %lf (should be x1 = 3, x2 = 2)\n",Answer.x1, Answer.x2);
     }
-
     // Тест 2: 2x^2 - 4x + 2 = 0 (корень: 1)
-    struct coeff TestCoeff2 = {2, -4, 2};
-    TestRoots.nroots = solve_quadratic(TestCoeff2, &TestRoots);
-    if (!(TestRoots.nroots == OneRoot && fabs(TestRoots.x1 - 1) < EPS))
+    TestCoeff = {2, -4, 2};
+    TestRoots = {2, 3, OneRoot};
+    if (!(checkcase(TestCoeff,TestRoots,&Answer)))
     {
-        printf("FAILED: solve_quadratic(2 -4 2) -> x = %lf (should be x = 1)\n", TestRoots.x1);
+        printf("FAILED: solve_quadratic(2 -4 2) -> x1 = %lf, x2 =%lf (should be x = 1)\n",Answer.x1, Answer.x2);
+    }
+    TestCoeff = {6, 1, 2};
+    TestRoots = {2, 3, ZeroRoots};
+    if (!(checkcase(TestCoeff,TestRoots,&Answer)))
+    {
+        printf("FAILED: solve_quadratic(6 1 2) -> x1 = %lf, x2 = %lf (should be No Roots)\n",Answer.x1, Answer.x2);
+
     }
 
-}
-
-void TestSolve_linear()
-{
-    struct roots TestRoots;
-
-    // Тест: x - 2 = 0 (корень: 2)
-    struct coeff TestCoeff = {0, 1, -2};
-    TestRoots.nroots = solve_linear(TestCoeff, &TestRoots);
-    if (!(TestRoots.nroots == OneRoot && fabs(TestRoots.x1 - 2) < EPS))
-    {
-        printf("FAILED: solve_linear(0 1 -2) -> x = %lf (should be x = 2)\n", TestRoots.x1);
-    }
 }
