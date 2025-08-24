@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
+#include <string.h>
 
 
 const double EPS = 1e-6;
@@ -25,38 +26,41 @@ struct roots
 {
     double x1;
     double x2;
-    enum rootsCount nroots;
+    rootsCount nroots;
 };
 
 struct checkEquation
 {
-    struct coeff CheckCoeff;
-    struct roots RightAnswer;
-    struct roots ActualAnswer;
+    coeff CheckCoeff;
+    roots RightAnswer;
+    roots ActualAnswer;
 };
 
 
-rootsCount solve_linear(struct coeff coeff, struct roots* roots);
-rootsCount solve_quadratic(struct coeff coeff, struct roots* roots);
-rootsCount num_root(struct coeff coeff, struct roots* roots);
-void print_roots(struct roots roots);
+rootsCount solve_linear(coeff coeff, roots* roots);
+rootsCount solve_quadratic(coeff coeff, roots* roots);
+rootsCount num_root(coeff coeff, roots* roots);
+void print_roots(roots roots);
 
 void run_test();
 void print_test(checkEquation equation);
-bool check_case (struct coeff CheckCoeff, struct roots RightAnswer, struct roots* ActualAnswer);
+bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer);
 
-
-int main(char **argv)
+int main(int argc, char **argv)
 {
-    //if (argv[1] == "test")
+    // TODO if(search_flag(argc, argv, "--test")) {...}
+    if (argc > 1)
     {
-        run_test();
+        if (strcmp(argv[1], "--test") == 0)
+        {
+            run_test();
+            return 0;
+        }
     }
-    //printf(argv[1],"\n");
     printf("Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 
     struct coeff coeff = {NAN, NAN, NAN};
-    scanf("%lg %lg %lg", &coeff.a, &coeff.b, &coeff.c);
+    scanf("%lg %lg %lg", &coeff.a, &coeff.b, &coeff.c); // TODO scanf redoo
 
     struct roots roots = {NAN, NAN, Error};
     roots.nroots = num_root(coeff, &roots);
@@ -169,13 +173,8 @@ bool check_case (struct coeff CheckCoeff, struct roots RightAnswer, struct roots
     }
     return false;
 }
-// TODO remove lines
-// NAMING CASES:
-// camelCase
-// PascalCase
-// snake_case
-// kebab-case -- not available in C
-void print_test(checkEquation equation)
+
+void print_test(checkEquation equation) // TODO run_test
 {
     if(check_case(equation.CheckCoeff, equation.RightAnswer, &equation.ActualAnswer))
     {
@@ -189,19 +188,20 @@ void print_test(checkEquation equation)
     }
 }
 
-void run_test()
+void run_test() // TODO run_all_tests
 {
-    struct checkEquation TestEquation[] =
+    struct checkEquation testEquation[] =
     {
         {.CheckCoeff = {1, -5, 6}, .RightAnswer = {3, 2, TwoRoots}},
         {.CheckCoeff = {2, -4, 2},.RightAnswer = {1, NAN, OneRoot}},
         {.CheckCoeff = {6, 2, 1}, .RightAnswer = {NAN, NAN, ZeroRoots}},
         {.CheckCoeff = {0, 0, 0}, .RightAnswer = {NAN, NAN, InfiniteRoots}},
         {.CheckCoeff = {0, 0, 1}, .RightAnswer = {NAN, NAN, ZeroRoots}},
-        {.CheckCoeff ={0, 1, -1}, .RightAnswer = {1, NAN, OneRoot}}
+        {.CheckCoeff = {0, 1, -1}, .RightAnswer = {1, NAN, OneRoot}}
     };
-    for (int i = 0; i < 6; i++)
+
+    for (int testNumber = 0; testNumber < sizeof(testEquation) / sizeof(testEquation[0]); testNumber++)
     {
-        print_test(TestEquation[i]);
+        print_test(testEquation[testNumber]);
     }
 }
