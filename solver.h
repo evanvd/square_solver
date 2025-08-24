@@ -32,7 +32,7 @@ struct checkEquation
     roots ActualAnswer;
 };
 
-
+// TODO add docs
 rootsCount solve_linear(coeff coeff, roots* roots);
 rootsCount solve_quadratic(coeff coeff, roots* roots);
 rootsCount num_root(coeff coeff, roots* roots);
@@ -43,4 +43,4 @@ bool search_flag(int argc, char** argv, const char* flags);
 
 void run_all_test();
 void run_test(checkEquation equation);
-bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer);
+bool check_case(coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer);

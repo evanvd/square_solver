@@ -28,6 +28,7 @@ bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 
 void run_test(checkEquation equation)
 {
+    // TODO make actualAnswer local variable
     if(check_case(equation.CheckCoeff, equation.RightAnswer, &equation.ActualAnswer))
     {
         printf("PASSED (%lg %lg %lg)\n", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c);

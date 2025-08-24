@@ -14,13 +14,14 @@ int main(int argc, char **argv)
     }
     printf("Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 
-    struct coeff coeff = {NAN, NAN, NAN};
+    coeff coeff = {NAN, NAN, NAN};
     bool isCorrectInput = scan_check(&coeff.a, &coeff.b, &coeff.c);
     if (!isCorrectInput)
     {
         return 0;
     }
-    struct roots roots = {NAN, NAN, Error};
+
+    roots roots = {NAN, NAN, Error};
     roots.nroots = num_root(coeff, &roots);
 
     print_roots(roots);

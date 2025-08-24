@@ -3,9 +3,7 @@
 #include <assert.h>
 #include "solver.h"
 #include <string.h>
-
-
-
+// TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 bool scan_check(double* a, double* b, double* c)
 {
     scanf("%lg %lg %lg", a, b, c);
@@ -18,6 +16,10 @@ bool scan_check(double* a, double* b, double* c)
 
     return true;
 }
+// TODO colored output
+// Read: ANSI color codes
+// color_printf(GREEN, BOLD, "%d daskjskdjad %s %c", 3, "hui", '!');
+// Read: variadic args, vprintf
 
 bool search_flag(int argc, char** argv, const char* flags)
 {
