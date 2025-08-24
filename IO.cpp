@@ -4,9 +4,19 @@
 #include "solver.h"
 #include <string.h>
 
-void scan_check
-{
 
+
+bool scan_check(double* a, double* b, double* c)
+{
+    scanf("%lg %lg %lg", a, b, c);
+
+    if (!isfinite(*a) || !isfinite(*b) || !isfinite(*c))
+    {
+        printf("Error: Non-numeric values entered\n");
+        return false;
+    }
+
+    return true;
 }
 
 bool search_flag(int argc, char** argv, const char* flags)

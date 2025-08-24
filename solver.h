@@ -37,7 +37,7 @@ rootsCount solve_linear(coeff coeff, roots* roots);
 rootsCount solve_quadratic(coeff coeff, roots* roots);
 rootsCount num_root(coeff coeff, roots* roots);
 
-void scan_check(a, b, c);
+bool scan_check(double* a, double* b, double* c);
 void print_roots(roots roots);
 bool search_flag(int argc, char** argv, const char* flags);
 
