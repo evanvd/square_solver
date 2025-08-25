@@ -6,6 +6,15 @@
 #include "tests.h"
 #include "IO.h"
 
+/**
+ * @file squaresolver.cpp
+ * @brief Решение квадратных и линейных уравнений
+ * @details
+ * решение уравнений вида:
+ * - Квадратные: ax^2 + bx + c = 0
+ * - Линейные: bx + c = 0
+ */
+
 int main(int argc, char **argv)
 {
     if (search_flag(argc, argv,"--test"))

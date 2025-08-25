@@ -19,10 +19,9 @@ void color_printf(const char* color, const char* format, ...)
 
 void print_welcome()
 {
-    color_printf(BLUE, "========================================\n");
-    color_printf(BLUE, "    РЕШАТЕЛЬ КВАДРАТНЫХ УРАВНЕНИЙ\n");
-    color_printf(BLUE, "========================================\n");
-    printf("\n");
+    color_printf(BLUE, "\t=========================================\n");
+    color_printf(BLUE, "\t     РЕШАТЕЛЬ КВАДРАТНЫХ УРАВНЕНИЙ\n");
+    color_printf(BLUE, "\t=========================================\n\n");
 }
 
 bool scan_check(double* a, double* b, double* c)
@@ -50,10 +49,7 @@ bool scan_check(double* a, double* b, double* c)
 
     return false;
 }
-// TODO colored output
-// Read: ANSI color codes
-// color_printf(GREEN, BOLD, "%d daskjskdjad %s %c", 3, "hui", '!');
-// Read: variadic args, vprintf
+
 bool search_flag(int argc, char** argv, const char* flags)
 {
     for (int num_flags = 1; num_flags < argc; num_flags++)
