@@ -25,22 +25,9 @@ struct roots
     rootsCount nroots;
 };
 
-struct checkEquation
-{
-    coeff CheckCoeff;
-    roots RightAnswer;
-    roots ActualAnswer;
-};
 
 // TODO add docs
 rootsCount solve_linear(coeff coeff, roots* roots);
 rootsCount solve_quadratic(coeff coeff, roots* roots);
 rootsCount num_root(coeff coeff, roots* roots);
 
-bool scan_check(double* a, double* b, double* c);
-void print_roots(roots roots);
-bool search_flag(int argc, char** argv, const char* flags);
-
-void run_all_test();
-void run_test(checkEquation equation);
-bool check_case(coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer);

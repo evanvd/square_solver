@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <string.h>
 #include "solver.h"
+#include "tests.h"
+#include "IO.h"
 
 int main(int argc, char **argv)
 {
@@ -12,7 +14,8 @@ int main(int argc, char **argv)
         return 0;
 
     }
-    printf("Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
+    print_welcome();
+    color_printf(BLUE,"Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 
     coeff coeff = {NAN, NAN, NAN};
     bool isCorrectInput = scan_check(&coeff.a, &coeff.b, &coeff.c);

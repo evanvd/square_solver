@@ -3,24 +3,57 @@
 #include <assert.h>
 #include "solver.h"
 #include <string.h>
-// TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+#include "IO.h"
+#include <stdarg.h>
+
+void color_printf(const char* color, const char* format, ...)
+{
+    printf("%s", color);
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+
+    printf("%s", RESET);
+}
+
+void print_welcome()
+{
+    color_printf(BLUE, "========================================\n");
+    color_printf(BLUE, "    РЕШАТЕЛЬ КВАДРАТНЫХ УРАВНЕНИЙ\n");
+    color_printf(BLUE, "========================================\n");
+    printf("\n");
+}
+
 bool scan_check(double* a, double* b, double* c)
 {
     scanf("%lg %lg %lg", a, b, c);
 
     if (!isfinite(*a) || !isfinite(*b) || !isfinite(*c))
     {
-        printf("Error: Non-numeric values entered\n");
+        color_printf(RED, "Error: Non-numeric values entered\n");
         return false;
     }
 
-    return true;
+    int next_char = getchar();
+    if (next_char == '\n' || next_char == EOF)
+    {
+        return true;
+    }
+
+    else
+    {
+        color_printf(YELLOW, "Предупреждение: после чисел обнаружены лишние символы\n");
+        while (getchar() != '\n');
+        return true;
+    }
+
+    return false;
 }
 // TODO colored output
 // Read: ANSI color codes
 // color_printf(GREEN, BOLD, "%d daskjskdjad %s %c", 3, "hui", '!');
 // Read: variadic args, vprintf
-
 bool search_flag(int argc, char** argv, const char* flags)
 {
     for (int num_flags = 1; num_flags < argc; num_flags++)
@@ -36,19 +69,19 @@ void print_roots(roots roots)
     switch(roots.nroots)
     {
         case ZeroRoots:
-            printf("Уравнение не имеет решений\n");
+            color_printf( GREEN, "Уравнение не имеет решений\n");
             break;
         case OneRoot:
-            printf("Уравнение имеет единственное решение: x = %lf\n", roots.x1);
+            color_printf(GREEN, "Уравнение имеет единственное решение: x = %lf\n", roots.x1);
             break;
         case TwoRoots:
-            printf("Уравнение имеет два решения: x1 = %lf, x2 = %lf\n", roots.x1, roots.x2);
+            color_printf(GREEN, "Уравнение имеет два решения: x1 = %lf, x2 = %lf\n", roots.x1, roots.x2);
             break;
         case InfiniteRoots:
-            printf("Уравнение имеет бесконечно много решений\n");
+            color_printf(GREEN, "Уравнение имеет бесконечно много решений\n");
             break;
         case Error:
-            printf("ERROR\n");
+            color_printf(RED, "ERROR\n");
             break;
         default:
             break;

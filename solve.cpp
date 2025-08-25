@@ -2,6 +2,8 @@
 #include <math.h>
 #include <assert.h>
 #include "solver.h"
+#include "tests.h"
+#include "IO.h"
 
 rootsCount num_root(coeff coeff, roots* roots)
 {
@@ -55,6 +57,5 @@ rootsCount solve_quadratic(coeff coeff, roots* roots)
         roots->x1 = (-coeff.b + sqrt(d)) / (2 * coeff.a);
         return TwoRoots;
     }
-
     return Error;
 }

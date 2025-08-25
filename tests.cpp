@@ -2,6 +2,8 @@
 #include <math.h>
 #include <assert.h>
 #include "solver.h"
+#include "tests.h"
+#include "IO.h"
 
 bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 {
@@ -28,15 +30,15 @@ bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 
 void run_test(checkEquation equation)
 {
-    // TODO make actualAnswer local variable
-    if(check_case(equation.CheckCoeff, equation.RightAnswer, &equation.ActualAnswer))
+    roots actualAnswer;
+    if(check_case(equation.CheckCoeff, equation.RightAnswer, &actualAnswer))
     {
-        printf("PASSED (%lg %lg %lg)\n", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c);
+        color_printf(GREEN,"PASSED (%lg %lg %lg)\n", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c);
     }
     else
     {
-        printf("FAILED (%lg %lg %lg): ", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c );
-        printf("x1 = %lg x2 = %lg", equation.ActualAnswer.x1, equation.ActualAnswer.x2 );
+        color_printf(RED, "FAILED (%lg %lg %lg): ", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c );
+        printf("x1 = %lg x2 = %lg", actualAnswer.x1, actualAnswer.x2 );
         printf(" (should be x1 = %lg x2= %lg)\n", equation.RightAnswer.x1, equation.RightAnswer.x2);
     }
 }
