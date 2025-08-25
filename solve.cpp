@@ -1,9 +1,49 @@
+/**
+ * @file solve.cpp
+ * @brief Реализация функций решения квадратных и линейных уравнений
+ *
+ * @details
+ * Этот модуль содержит реализации функций для решения:
+ * - Квадратных уравнений: ax² + bx + c = 0
+ * - Линейных уравнений: bx + c = 0
+ * - Вырожденных случаев
+ *
+ * @note Использует точность EPS для сравнения чисел с плавающей точкой
+ * @note Выполняет проверки входных данных с помощью assert
+ */
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
 #include "solver.h"
 #include "tests.h"
 #include "IO.h"
+
+/** @defgroup solving Функции решения уравнений */
+
+/**
+ * @brief Определяет тип уравнения и вызывает соответствующую функцию решения
+ * @ingroup solving
+ *
+ * @param[in] coeff Структура с коэффициентами уравнения
+ * @param[out] roots Указатель на структуру для записи корней
+ * @return rootsCount Количество действительных корней
+ *
+ * @details
+ * Функция анализирует коэффициент a чтобы определить тип уравнения:
+ * - Если |a| < EPS: линейное уравнение → вызывает solve_linear()
+ * - Если |a| >= EPS: квадратное уравнение → вызывает solve_quadratic()
+ *
+ * @note EPS = 1e-6 (точность сравнения чисел с плавающей точкой)
+ * @see solve_linear()
+ * @see solve_quadratic()
+ *
+ * @code
+ * coeff equation = {1, -5, 6};
+ * roots solution;
+ * rootsCount result = num_root(equation, &solution);
+ * // result = TwoRoots, solution.x1 = 3, solution.x2 = 2
+ * @endcode
+ */
 
 rootsCount num_root(coeff coeff, roots* roots)
 {

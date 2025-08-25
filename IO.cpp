@@ -1,11 +1,42 @@
+/**
+ * @file IO.cpp
+ * @brief Модуль ввода-вывода для решателя квадратных уравнений
+ * @details
+ * Этот модуль предоставляет функции для:
+ * - Цветного вывода в терминал
+ * - Ввода и валидации коэффициентов уравнения
+ * - Обработки аргументов командной строки
+ * - Вывода результатов решения уравнений
+ *  @note Для работы с цветным выводом используются ANSI escape codes
+ *  @see solver.h для структур данных и констант
+ */
+
+
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
 #include "solver.h"
+#include <stdarg.h>
 #include <string.h>
 #include "IO.h"
-#include <stdarg.h>
 
+
+/**
+ * @brief Выводит цветной текст в терминал
+ * @ingroup input_output
+ *
+ * @param[in] color Цветовой код (RED, GREEN, YELLOW, BLUE, RESET)
+ * @param[in] format Форматная строка в стиле printf
+ * @param[in] ... Переменное количество аргументов для форматирования
+ *
+ * @note Использует variadic functions для поддержки форматирования
+ * @note Автоматически сбрасывает цвет после вывода
+ *
+ * @code
+ * color_printf(RED, "Ошибка: %s\n", error_message);
+ * color_printf(GREEN, "Решение: x = %.2f\n", root);
+ * @endcode
+ */
 void color_printf(const char* color, const char* format, ...)
 {
     printf("%s", color);
@@ -17,12 +48,35 @@ void color_printf(const char* color, const char* format, ...)
     printf("%s", RESET);
 }
 
+/**
+ * @brief Выводит приветственное сообщение программы
+ * @ingroup input_output
+ *
+ * @details
+ * Отображает красивый заголовок программы с использованием цветного вывода.
+ * Сообщение включает название программы и разделители для улучшения читаемости.
+ */
+
 void print_welcome()
 {
     color_printf(BLUE, "\t=========================================\n");
     color_printf(BLUE, "\t     РЕШАТЕЛЬ КВАДРАТНЫХ УРАВНЕНИЙ\n");
     color_printf(BLUE, "\t=========================================\n\n");
 }
+
+/**
+ * @brief Читает и проверяет коэффициенты уравнения
+ * @ingroup input_output
+ *
+ * @param[out] a  коэффициент a
+ * @param[out] b  коэффициент b
+ * @param[out] c  коэффициент c
+ * @return true - коэффициенты успешно прочитаны
+ * @return false - ввод содержит ошибки
+ *
+ * @note При обнаружении лишних символов выводит предупреждение, но возвращает true
+ * @note При нечисловом вводе выводит ошибку и возвращает false
+ */
 
 bool scan_check(double* a, double* b, double* c)
 {
@@ -50,6 +104,53 @@ bool scan_check(double* a, double* b, double* c)
     return false;
 }
 
+// bool read_from_file(const char* filename, struct coeff* coeff)
+// {
+//     if (filename == NULL || coeff == NULL) {
+//         color_printf(RED, "Ошибка: NULL pointer в read_from_file\n");
+//         return false;
+//     }
+//
+//     FILE* file = fopen(filename, "r");
+//     if (file == NULL) {
+//         color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
+//         return false;
+//     }
+//
+//     // Чтение коэффициентов
+//     int count = fscanf(file, "%lg %lg %lg", &coeff->a, &coeff->b, &coeff->c);
+//
+//     fclose(file);
+//
+//     if (count != 3) {
+//         color_printf(RED, "Ошибка: Файл должен содержать 3 числа\n");
+//         return false;
+//     }
+//
+//     if (!isfinite(coeff->a) || !isfinite(coeff->b) || !isfinite(coeff->c)) {
+//         color_printf(RED, "Ошибка: Файл содержит нечисловые значения\n");
+//         return false;
+//     }
+//
+//     color_printf(GREEN, "Коэффициенты успешно прочитаны из файла '%s'\n", filename);
+//     return true;
+// }
+
+/**
+ * @brief Ищет флаг в аргументах командной строки
+ * @ingroup input_output
+ *
+ * @param[in] argc Количество аргументов командной строки
+ * @param[in] argv Массив аргументов командной строки
+ * @param[in] flags Искомый флаг (например, "--test")
+ * @return true - флаг найден
+ * @return false - флаг не найден
+ *
+ * @details
+ * Функция ищет точное совпадение флага в массиве аргументов,
+ */
+
+
 bool search_flag(int argc, char** argv, const char* flags)
 {
     for (int num_flags = 1; num_flags < argc; num_flags++)
@@ -59,6 +160,24 @@ bool search_flag(int argc, char** argv, const char* flags)
     }
     return false;
 }
+
+/**
+ * @brief Выводит корни уравнения с цветовой подсветкой
+ * @ingroup input_output
+ *
+ * @param[in] roots Структура содержащая корни уравнения и информацию о их количестве
+ *
+ * @details
+ * В зависимости от количества корней выводит соответствующее сообщение:
+ * - ZeroRoots: сообщение об отсутствии решений (зеленый)
+ * - OneRoot: одно решение с значением (зеленый)
+ * - TwoRoots: два решения с значениями (зеленый)
+ * - InfiniteRoots: сообщение о бесконечном числе решений (зеленый)
+ * - Error: сообщение об ошибке вычислений (красный)
+ *
+ * @note Использует цветовой вывод для улучшения читаемости
+ * @note Для неизвестного типа решения вывод отсутствует
+ */
 
 void print_roots(roots roots)
 {

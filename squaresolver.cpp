@@ -7,21 +7,26 @@
 #include "IO.h"
 
 /**
- * @file squaresolver.cpp
- * @brief Решение квадратных и линейных уравнений
- * @details
- * решение уравнений вида:
- * - Квадратные: ax^2 + bx + c = 0
- * - Линейные: bx + c = 0
- */
+* @file squaresolver.cpp
+* @brief Решение квадратных и линейных уравнений
+* @details
+* решение уравнений вида:
+* - Квадратные: ax^2 + bx + c = 0
+* - Линейные: bx + c = 0
+*/
 
+// --test_file
 int main(int argc, char **argv)
 {
-    if (search_flag(argc, argv,"--test"))
+    if (search_flag(argc, argv,"--embedded_test"))
     {
         run_all_test();
         return 0;
-
+    }
+    if (search_flag(argc, argv,"--test_file"))
+    {
+        run_all_test();
+        return 0;
     }
     print_welcome();
     color_printf(BLUE,"Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
