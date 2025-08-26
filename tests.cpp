@@ -181,13 +181,13 @@ bool read_from_file(checkEquation* Equation [], const char* filename)
 void run_from_file(const char* filename)
 {
     const int testCount = 10; // TODO READ IT FROM FILE
-    checkEquation* testEquation = malloc(10 * sizeof(struct checkEquation));
+    checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
     // TODO FIX THAT
     for(int testNumber; testNumber < testCount; testNumber++)
     {
-        if(read_from_file(&testEquation[]))
+        if(read_from_file(&testEquation, filename))
         {
-        run_test(testEquation[testNumber]);
+            run_test(testEquation[testNumber]);
         }
     }
 }
