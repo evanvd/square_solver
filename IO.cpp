@@ -104,37 +104,6 @@ bool scan_check(double* a, double* b, double* c)
     return false;
 }
 
-// bool read_from_file(const char* filename, struct coeff* coeff)
-// {
-//     if (filename == NULL || coeff == NULL) {
-//         color_printf(RED, "Ошибка: NULL pointer в read_from_file\n");
-//         return false;
-//     }
-//
-//     FILE* file = fopen(filename, "r");
-//     if (file == NULL) {
-//         color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
-//         return false;
-//     }
-//
-//     // Чтение коэффициентов
-//     int count = fscanf(file, "%lg %lg %lg", &coeff->a, &coeff->b, &coeff->c);
-//
-//     fclose(file);
-//
-//     if (count != 3) {
-//         color_printf(RED, "Ошибка: Файл должен содержать 3 числа\n");
-//         return false;
-//     }
-//
-//     if (!isfinite(coeff->a) || !isfinite(coeff->b) || !isfinite(coeff->c)) {
-//         color_printf(RED, "Ошибка: Файл содержит нечисловые значения\n");
-//         return false;
-//     }
-//
-//     color_printf(GREEN, "Коэффициенты успешно прочитаны из файла '%s'\n", filename);
-//     return true;
-// }
 
 /**
  * @brief Ищет флаг в аргументах командной строки
