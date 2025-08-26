@@ -172,7 +172,7 @@ void print_roots(roots roots)
     }
 }
 
-bool read_from_file(const char* filename, coeff* coeff, roots* answer)
+bool read_from_file(checkEquation* Equation [])
 {
     if (filename == NULL)
     {

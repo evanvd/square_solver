@@ -143,12 +143,14 @@ void run_all_test()
 
 void run_from_file(const char* filename)
 {
-    struct checkEquation testEquation[] = {};
-    for(int testNumber = 0; testNumber < 10; testNumber++)
+    int testCount = 10; // TODO READ IT FROM FILE
+    checkEquation testEquation[] = {};
+    // TODO FIX THAT
+
+   if(read_from_file(testEquation))
     {
-        if(read_from_file(filename, &testEquation[testNumber].CheckCoeff, &testEquation[testNumber].RightAnswer))
-        {
-            run_test(testEquation[testNumber]);
-        }
+        for (int testNumber = 0; testNumber < testCount; testNumber++)
+        run_test(testEquation[testNumber]);
     }
+
 }

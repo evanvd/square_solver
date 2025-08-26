@@ -5,7 +5,7 @@
 #include "solver.h"
 #include "tests.h"
 #include "IO.h"
-
+// TODO ReadMe
 /**
 * @file squaresolver.cpp
 * @brief Решение квадратных и линейных уравнений
@@ -25,9 +25,10 @@ int main(int argc, char **argv)
     }
     if (search_flag(argc, argv,"--test_file"))
     {
-        run_all_test();
+        run_from_file("test.txt");
         return 0;
     }
+
     print_welcome();
     color_printf(BLUE,"Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 

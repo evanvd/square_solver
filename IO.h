@@ -71,4 +71,4 @@ void print_roots(roots roots);
 
 bool search_flag(int argc, char** argv, const char* flags);
 
-bool read_from_file(const char* filename, coeff* coeff, roots* answer);
+bool read_from_file(checkEquation* Equation []);
