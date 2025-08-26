@@ -183,11 +183,13 @@ void run_from_file(const char* filename)
     const int testCount = 10; // TODO READ IT FROM FILE
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
     // TODO FIX THAT
-    for(int testNumber; testNumber < testCount; testNumber++)
+    for(int testNumber = 0; testNumber < testCount-1; testNumber++)
     {
         if(read_from_file(&testEquation, filename))
         {
             run_test(testEquation[testNumber]);
         }
     }
+    free(testEquation);
+
 }
