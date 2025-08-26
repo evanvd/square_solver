@@ -8,11 +8,6 @@
  */
 #include <stdio.h>
 
-struct checkEquation
-{
-    coeff CheckCoeff;
-    roots RightAnswer;
-};
 
 void run_from_file(const char* filename);
 void run_all_test();

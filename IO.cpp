@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
+#include "tests.h"
 #include "solver.h"
 #include <stdarg.h>
 #include <string.h>
@@ -172,7 +173,7 @@ void print_roots(roots roots)
     }
 }
 
-bool read_from_file(checkEquation* Equation [])
+bool read_from_file(checkEquation* Equation [], int fileSize)
 {
     if (filename == NULL)
     {
@@ -186,16 +187,17 @@ bool read_from_file(checkEquation* Equation [])
         color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
         return false;
     }
-
-    int count = fscanf(file, "%lg %lg %lg %lg %lg", &coeff->a, &coeff->b, &coeff->c, &answer->x1, &answer->x2);
-
+    for (int testNumber; testNumber < fileSize, testNumber++;)
+    {
+        fscanf(file, "%lg %lg %lg %lg %lg", &Equation[testNumber]->CheckCoeff.a, &Equation[testNumber]->CheckCoeff->b, &Equation[testNumber]->CheckCoeff.c, &Equation[testNumber]->RightAnswer.x1, &Equation[testNumber]->RightAnswer.x2);
+    }
     fclose(file);
 
-    if (count != 5)
-    {
-        color_printf(RED, "Ошибка: Файл должен содержать 5 чисел\n");
-        return false;
-    }
+    // if (count != 5)
+    // {
+    //     color_printf(RED, "Ошибка: Файл должен содержать 5 чисел\n");
+    //     return false;
+    // }
 
     // if (!isfinite(coeff.a) || !isfinite(coeff.b) || !isfinite(coeff->c) || !isfinite(answer->x1) || !isfinite(answer->x2))
     // {

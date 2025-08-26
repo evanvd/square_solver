@@ -49,6 +49,11 @@ struct roots
     rootsCount nroots;
 };
 
+struct checkEquation
+{
+    coeff CheckCoeff;
+    roots RightAnswer;
+};
 
 // TODO add docs
 rootsCount solve_linear(coeff coeff, roots* roots);

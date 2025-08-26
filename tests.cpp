@@ -147,7 +147,7 @@ void run_from_file(const char* filename)
     checkEquation testEquation[] = {};
     // TODO FIX THAT
 
-   if(read_from_file(testEquation))
+   if(read_from_file(&testEquation[]))
     {
         for (int testNumber = 0; testNumber < testCount; testNumber++)
         run_test(testEquation[testNumber]);
