@@ -42,6 +42,5 @@ int main(int argc, char **argv)
     roots.nroots = num_root(coeff, &roots);
 
     print_roots(roots);
-    printf("COMMIT GITHUB");
     return 0;
 }

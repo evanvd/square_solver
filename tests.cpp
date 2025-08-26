@@ -140,3 +140,15 @@ void run_all_test()
         run_test(testEquation[testNumber]);
     }
 }
+
+void run_from_file(const char* filename)
+{
+    struct checkEquation testEquation[] = {};
+    for(int testNumber = 0; testNumber < 10; testNumber++)
+    {
+        if(read_from_file(filename, &testEquation[testNumber].CheckCoeff, &testEquation[testNumber].RightAnswer))
+        {
+            run_test(testEquation[testNumber]);
+        }
+    }
+}
