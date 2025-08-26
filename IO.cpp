@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
-#include "tests.h"
 #include "solver.h"
 #include <stdarg.h>
 #include <string.h>
@@ -173,38 +172,3 @@ void print_roots(roots roots)
     }
 }
 
-bool read_from_file(checkEquation* Equation [], int fileSize)
-{
-    if (filename == NULL)
-    {
-        color_printf(RED, "Ошибка\n");
-        return false;
-    }
-
-    FILE* file = fopen(filename, "r");
-    if (file == NULL)
-    {
-        color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
-        return false;
-    }
-    for (int testNumber; testNumber < fileSize, testNumber++;)
-    {
-        fscanf(file, "%lg %lg %lg %lg %lg", &Equation[testNumber]->CheckCoeff.a, &Equation[testNumber]->CheckCoeff->b, &Equation[testNumber]->CheckCoeff.c, &Equation[testNumber]->RightAnswer.x1, &Equation[testNumber]->RightAnswer.x2);
-    }
-    fclose(file);
-
-    // if (count != 5)
-    // {
-    //     color_printf(RED, "Ошибка: Файл должен содержать 5 чисел\n");
-    //     return false;
-    // }
-
-    // if (!isfinite(coeff.a) || !isfinite(coeff.b) || !isfinite(coeff->c) || !isfinite(answer->x1) || !isfinite(answer->x2))
-    // {
-    //     color_printf(RED, "Ошибка: Файл содержит нечисловые значения\n");
-    //     return false;
-    // }
-
-    color_printf(GREEN, "Коэффициенты успешно прочитаны из файла '%s'\n", filename);
-    return true;
-}

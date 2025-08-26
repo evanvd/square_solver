@@ -141,16 +141,53 @@ void run_all_test()
     }
 }
 
-void run_from_file(const char* filename)
+bool read_from_file(checkEquation* Equation [], const char* filename)
 {
-    int testCount = 10; // TODO READ IT FROM FILE
-    checkEquation testEquation[] = {};
-    // TODO FIX THAT
-
-   if(read_from_file(&testEquation[]))
+    if (filename == NULL)
     {
-        for (int testNumber = 0; testNumber < testCount; testNumber++)
-        run_test(testEquation[testNumber]);
+        color_printf(RED, "Ошибка\n");
+        return false;
     }
 
+    FILE* file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
+        return false;
+    }
+    for (int testNum; testNum < 10; testNum++)
+    {
+        fscanf(file, "%lg %lg %lg %lg %lg", &Equation[testNum]->CheckCoeff.a,  &Equation[testNum]->CheckCoeff.b,  &Equation[testNum]->CheckCoeff.c,  &Equation[testNum]->RightAnswer.x1,&Equation[testNum]->RightAnswer.x2);
+    }
+    fclose(file);
+
+    // if (count != 5)
+    // {
+    //     color_printf(RED, "Ошибка: Файл должен содержать 5 чисел\n");
+    //     return false;
+    // }
+
+    // if (!isfinite(coeff.a) || !isfinite(coeff.b) || !isfinite(coeff->c) || !isfinite(answer->x1) || !isfinite(answer->x2))
+    // {
+    //     color_printf(RED, "Ошибка: Файл содержит нечисловые значения\n");
+    //     return false;
+    // }
+
+    color_printf(GREEN, "Коэффициенты успешно прочитаны из файла '%s'\n", filename);
+    return true;
+}
+
+
+void run_from_file(const char* filename)
+{
+    const int testCount = 10; // TODO READ IT FROM FILE
+    checkEquation* testEquation = malloc(10 * sizeof(struct checkEquation));
+    // TODO FIX THAT
+    for(int testNumber; testNumber < testCount; testNumber++)
+    {
+        if(read_from_file(&testEquation[]))
+        {
+        run_test(testEquation[testNumber]);
+        }
+    }
 }
