@@ -31,10 +31,6 @@
  * @note Использует variadic functions для поддержки форматирования
  * @note Автоматически сбрасывает цвет после вывода
  *
- * @code
- * color_printf(RED, "Ошибка: %s\n", error_message);
- * color_printf(GREEN, "Решение: x = %.2f\n", root);
- * @endcode
  */
 void color_printf(const char* color, const char* format, ...)
 {
@@ -62,7 +58,6 @@ void print_welcome()
     color_printf(BLUE, "\t     РЕШАТЕЛЬ КВАДРАТНЫХ УРАВНЕНИЙ\n");
     color_printf(BLUE, "\t=========================================\n\n");
 }
-
 /**
  * @brief Читает и проверяет коэффициенты уравнения
  * @ingroup input_output

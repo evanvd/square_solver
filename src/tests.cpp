@@ -45,7 +45,7 @@ bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 {
     *ActualAnswer = {NAN, NAN, Error};
     ActualAnswer->nroots = num_root(CheckCoeff, ActualAnswer);
-    // Split line (tread_from_fileoo long)
+
     if(fabs(ActualAnswer->nroots - RightAnswer.nroots) < EPS )
     {
         if(ActualAnswer->nroots < OneRoot)
@@ -159,9 +159,6 @@ bool read_from_file(checkEquation* Equation , const char* filename)
     for (int testNum = 0; testNum < 10; testNum++)
     {
         fscanf(file, "%lg %lg %lg %lg %lg", &Equation[testNum].CheckCoeff.a,
-               &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
-               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2);
-        color_printf(BLUE, "%lg %lg %lg %lg %lg\n", &Equation[testNum].CheckCoeff.a,
                &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
                &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2);
     }
