@@ -15,10 +15,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
-#include "solver.h"
+#include "../include/solver.h"
 #include <stdarg.h>
 #include <string.h>
-#include "IO.h"
+#include "../include/IO.h"
 
 
 /**
@@ -171,4 +171,3 @@ void print_roots(roots roots)
             break;
     }
 }
-

@@ -1,0 +1,7 @@
+build/
+html/
+latex/
+.vscode/
+a.out
+hui.cpp
+test.txt

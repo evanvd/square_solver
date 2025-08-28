@@ -13,9 +13,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
-#include "solver.h"
-#include "tests.h"
-#include "IO.h"
+#include "../include/solver.h"
+#include "../include/tests.h"
+#include "../include/IO.h"
 
 /** @defgroup testing Функции тестирования */
 

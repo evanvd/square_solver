@@ -2,9 +2,9 @@
 #include <math.h>
 #include <assert.h>
 #include <string.h>
-#include "solver.h"
-#include "tests.h"
-#include "IO.h"
+#include "../include/solver.h"
+#include "../include/tests.h"
+#include "../include/IO.h"
 // TODO ReadMe
 /**
 * @file squaresolver.cpp
@@ -28,7 +28,6 @@ int main(int argc, char **argv)
         run_from_file("test.txt");
         return 0;
     }
-
     print_welcome();
     color_printf(BLUE,"Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 
