@@ -55,7 +55,6 @@ struct checkEquation
     roots RightAnswer;
 };
 
-// TODO add docs
 rootsCount solve_linear(coeff coeff, roots* roots);
 rootsCount solve_quadratic(coeff coeff, roots* roots);
 rootsCount num_root(coeff coeff, roots* roots);

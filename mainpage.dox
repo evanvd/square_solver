@@ -42,10 +42,6 @@
  * - @ref run_test() - Запуск одного тестового случая
  * - @ref check_case() - Проверка корректности решения
  *
- * @section usage_sec Использование
- *
- * @subsection compilation_subsec Компиляция
- * @subsection running_subsec Запуск
  *
  * @section examples_sec Примеры уравнений
  *

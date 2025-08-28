@@ -161,18 +161,6 @@ bool read_from_file(checkEquation* Equation [], const char* filename)
     }
     fclose(file);
 
-    // if (count != 5)
-    // {
-    //     color_printf(RED, "Ошибка: Файл должен содержать 5 чисел\n");
-    //     return false;
-    // }
-
-    // if (!isfinite(coeff.a) || !isfinite(coeff.b) || !isfinite(coeff->c) || !isfinite(answer->x1) || !isfinite(answer->x2))
-    // {
-    //     color_printf(RED, "Ошибка: Файл содержит нечисловые значения\n");
-    //     return false;
-    // }
-
     color_printf(GREEN, "Коэффициенты успешно прочитаны из файла '%s'\n", filename);
     return true;
 }
@@ -180,7 +168,7 @@ bool read_from_file(checkEquation* Equation [], const char* filename)
 
 void run_from_file(const char* filename)
 {
-    const int testCount = 10; // TODO READ IT FROM FILE
+    const int testCount = 10;
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
     // TODO FIX THAT
     for(int testNumber = 0; testNumber < testCount-1; testNumber++)

@@ -5,7 +5,6 @@
 #include "../include/solver.h"
 #include "../include/tests.h"
 #include "../include/IO.h"
-// TODO ReadMe
 /**
 * @file squaresolver.cpp
 * @brief Решение квадратных и линейных уравнений
