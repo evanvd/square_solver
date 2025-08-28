@@ -20,7 +20,6 @@
 #include <string.h>
 #include "../include/IO.h"
 
-
 /**
  * @brief Выводит цветной текст в терминал
  * @ingroup input_output

@@ -45,7 +45,7 @@ bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 {
     *ActualAnswer = {NAN, NAN, Error};
     ActualAnswer->nroots = num_root(CheckCoeff, ActualAnswer);
-    // Split line (too long)
+    // Split line (tread_from_fileoo long)
     if(fabs(ActualAnswer->nroots - RightAnswer.nroots) < EPS )
     {
         if(ActualAnswer->nroots < OneRoot)
@@ -90,7 +90,7 @@ void run_test(checkEquation equation)
     {
         color_printf(RED, "FAILED (%lg %lg %lg): ", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c );
         printf("x1 = %lg x2 = %lg", actualAnswer.x1, actualAnswer.x2 );
-        printf(" (should be x1 = %lg x2= %lg)\n", equation.RightAnswer.x1, equation.RightAnswer.x2);
+        printf(" (should be x1 = %lg x2 = %lg)\n", equation.RightAnswer.x1, equation.RightAnswer.x2);
     }
 }
 
@@ -141,8 +141,9 @@ void run_all_test()
     }
 }
 
-bool read_from_file(checkEquation* Equation [], const char* filename)
+bool read_from_file(checkEquation* Equation , const char* filename)
 {
+    // TODO pass file and read by one
     if (filename == NULL)
     {
         color_printf(RED, "Ошибка\n");
@@ -155,12 +156,18 @@ bool read_from_file(checkEquation* Equation [], const char* filename)
         color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
         return false;
     }
-    for (int testNum; testNum < 10; testNum++)
-    {
-        fscanf(file, "%lg %lg %lg %lg %lg", &Equation[testNum]->CheckCoeff.a,  &Equation[testNum]->CheckCoeff.b,  &Equation[testNum]->CheckCoeff.c,  &Equation[testNum]->RightAnswer.x1,&Equation[testNum]->RightAnswer.x2);
-    }
-    fclose(file);
 
+    for (int testNum = 0; testNum < 10; testNum++)
+    {
+        fscanf(file, "%lg %lg %lg %lg %lg", &Equation[testNum].CheckCoeff.a,
+               &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
+               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2);
+        color_printf(BLUE, "%lg %lg %lg %lg %lg\n", &Equation[testNum].CheckCoeff.a,
+               &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
+               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2);
+    }
+
+    fclose(file);
     color_printf(GREEN, "Коэффициенты успешно прочитаны из файла '%s'\n", filename);
     return true;
 }
@@ -170,14 +177,19 @@ void run_from_file(const char* filename)
 {
     const int testCount = 10;
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
-    // TODO FIX THAT
-    for(int testNumber = 0; testNumber < testCount-1; testNumber++)
+
+    if(!read_from_file(testEquation, filename) || testEquation == NULL)
     {
-        if(read_from_file(&testEquation, filename))
+        printf("ERROR\n");
+        return;
+    }
+
+    else
+    {
+        for(int testNumber = 0; testNumber < testCount-1; testNumber++)
         {
             run_test(testEquation[testNumber]);
         }
     }
     free(testEquation);
-
 }
