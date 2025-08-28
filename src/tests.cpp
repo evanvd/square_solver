@@ -143,7 +143,6 @@ void run_all_test()
 
 bool read_from_file(checkEquation* Equation , const char* filename)
 {
-    // TODO pass file and read by one
     if (filename == NULL)
     {
         color_printf(RED, "Ошибка\n");
