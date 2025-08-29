@@ -71,3 +71,5 @@ void print_roots(roots roots);
 bool search_flag(int argc, char** argv, const char* flags);
 
 bool read_from_file(checkEquation* Equation []);
+
+void achievement();

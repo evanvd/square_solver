@@ -43,11 +43,10 @@
 
 bool check_solution (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 {
-    // TODO my_assert
     *ActualAnswer = {NAN, NAN, Error};
     ActualAnswer->nroots = num_root(CheckCoeff, ActualAnswer);
 
-    if(fabs(ActualAnswer->nroots - RightAnswer.nroots) < EPS )
+    if(fabs(ActualAnswer->nroots - RightAnswer.nroots) < EPS ) // TODO do func CompareDouble(), here useless
     {
         if(ActualAnswer->nroots < OneRoot)
         {
@@ -57,7 +56,7 @@ bool check_solution (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
         {
             return true;
         }
-        if(ActualAnswer->nroots == 2 && fabs(ActualAnswer->x1 - RightAnswer.x1) < EPS &&
+        if(ActualAnswer->nroots == TwoRoots && fabs(ActualAnswer->x1 - RightAnswer.x1) < EPS &&
             fabs(ActualAnswer->x2 - RightAnswer.x2) < EPS)
         {
             return true;
@@ -83,7 +82,7 @@ bool check_solution (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 
 void run_test(checkEquation equation)
 {
-    roots actualAnswer;
+    roots actualAnswer; // TODO init
     if(check_solution(equation.CheckCoeff, equation.RightAnswer, &actualAnswer))
     {
         color_printf(GREEN,"PASSED (%lg %lg %lg)\n", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c);
@@ -129,15 +128,15 @@ void run_embedded_test()
 {
     struct checkEquation testEquation[] =
     {
-        {.CheckCoeff = {1, -5, 6}, .RightAnswer = {3, 2, TwoRoots}},
-        {.CheckCoeff = {2, -4, 2},.RightAnswer = {1, NAN, OneRoot}},
-        {.CheckCoeff = {6, 2, 1}, .RightAnswer = {NAN, NAN, ZeroRoots}},
-        {.CheckCoeff = {0, 0, 0}, .RightAnswer = {NAN, NAN, InfiniteRoots}},
-        {.CheckCoeff = {0, 0, 1}, .RightAnswer = {NAN, NAN, ZeroRoots}},
-        {.CheckCoeff = {0, 1, -1}, .RightAnswer = {1, NAN, OneRoot}}
+        {.CheckCoeff = {1, -5,  6}, . RightAnswer = {3,   2,   TwoRoots}},
+        {.CheckCoeff = {2, -4,  2},  .RightAnswer = {1,   NAN, OneRoot}},
+        {.CheckCoeff = {6,  2,  1},  .RightAnswer = {NAN, NAN, ZeroRoots}},
+        {.CheckCoeff = {0,  0,  0},  .RightAnswer = {NAN, NAN, InfiniteRoots}},
+        {.CheckCoeff = {0,  0,  1},  .RightAnswer = {NAN, NAN, ZeroRoots}},
+        {.CheckCoeff = {0,  1, -1},  .RightAnswer = {1,   NAN, OneRoot}}
     };
     int testCount = sizeof(testEquation) / sizeof(testEquation[0]);
-    for (int testNumber = 0; testNumber <testCount; testNumber++)
+    for (int testNumber = 0; testNumber < testCount; testNumber++)
     {
         run_test(testEquation[testNumber]);
     }
@@ -158,10 +157,15 @@ bool read_from_file(checkEquation* Equation, const char* filename, size_t* testC
         return false;
     }
     fscanf(file,"%lu", testCount);
+    if (*testCount > 1000)
+    {
+        achievement();
+        return false;
+    }
     for (size_t testNum = 0; testNum < *testCount; testNum++)
     {
         fscanf(file, "%lg %lg %lg %lg %lg %d", &Equation[testNum].CheckCoeff.a,
-               &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
+               &Equation[testNum].CheckCoeff.b, &Equation[testNum].CheckCoeff.c,
                &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2,
                (int*)&Equation[testNum].RightAnswer.nroots);
     }
@@ -174,12 +178,13 @@ bool read_from_file(checkEquation* Equation, const char* filename, size_t* testC
 
 void run_from_file(const char* filename)
 {
-    size_t testCount = 1000; //Max count of tests
+    size_t testCount = 1000; //Max count of tests. It useful trust me
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
 
     if(!read_from_file(testEquation, filename,&testCount) || testEquation == NULL)
     {
         printf("ERROR\n");
+        free(testEquation);
         return;
     }
 

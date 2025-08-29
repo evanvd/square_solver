@@ -14,10 +14,9 @@
 * - Линейные: bx + c = 0
 */
 
-// --test_file
 int main(int argc, char **argv)
 {
-    if (search_flag(argc, argv,"--embedded_test"))
+    if (search_flag(argc, argv, "--embedded_test"))
     {
         run_embedded_test();
         return 0;
