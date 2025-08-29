@@ -2,9 +2,9 @@
 #include <math.h>
 #include <assert.h>
 #include <string.h>
-#include "../include/solver.h"
-#include "../include/tests.h"
-#include "../include/IO.h"
+#include "solver.h"
+#include "tests.h"
+#include "IO.h"
 /**
 * @file squaresolver.cpp
 * @brief Решение квадратных и линейных уравнений

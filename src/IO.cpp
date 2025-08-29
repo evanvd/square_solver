@@ -15,10 +15,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
-#include "../include/solver.h"
+#include "solver.h"
 #include <stdarg.h>
 #include <string.h>
-#include "../include/IO.h"
+#include "IO.h"
 
 /**
  * @brief Выводит цветной текст в терминал

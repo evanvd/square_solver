@@ -6,9 +6,8 @@
  * @see solver.h для определения структур coeff и roots
  */
 
-#include <stdio.h>
 
-#define RED     "\033[1;31m"    // const char* const RED =
+#define RED     "\033[1;31m"
 #define GREEN   "\033[1;32m"
 #define YELLOW  "\033[0;33m"
 #define BLUE    "\033[1;34m"

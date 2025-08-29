@@ -13,11 +13,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
-#include "../include/solver.h"
-#include "../include/tests.h"
-#include "../include/IO.h"
-
-// TODO -I gcc flag
+#include "solver.h"
+#include "tests.h"
+#include "IO.h"
 
 /** @defgroup testing Функции тестирования */
 
@@ -58,7 +56,8 @@ bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
         {
             return true;
         }
-        if(ActualAnswer->nroots == 2 && fabs(ActualAnswer->x1 - RightAnswer.x1) < EPS && fabs(ActualAnswer->x2 - RightAnswer.x2) < EPS)
+        if(ActualAnswer->nroots == 2 && fabs(ActualAnswer->x1 - RightAnswer.x1) < EPS &&
+            fabs(ActualAnswer->x2 - RightAnswer.x2) < EPS)
         {
             return true;
         }
@@ -162,7 +161,8 @@ bool read_from_file(checkEquation* Equation, const char* filename, size_t* testC
     {
         fscanf(file, "%lg %lg %lg %lg %lg %d", &Equation[testNum].CheckCoeff.a,
                &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
-               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2,  (int*)&Equation[testNum].RightAnswer.nroots);
+               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2,
+               (int*)&Equation[testNum].RightAnswer.nroots);
     }
 
     fclose(file);
@@ -175,8 +175,6 @@ void run_from_file(const char* filename)
 {
     size_t testCount = 1000; //Max count of tests (временно)
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
-
-    // TODO check calloc result
 
     if(!read_from_file(testEquation, filename,&testCount) || testEquation == NULL)
     {

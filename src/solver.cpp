@@ -14,9 +14,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
-#include "../include/solver.h"
-#include "../include/tests.h"
-#include "../include/IO.h"
+#include "solver.h"
+#include "tests.h"
+#include "IO.h"
 
 /** @defgroup solving Функции решения уравнений */
 

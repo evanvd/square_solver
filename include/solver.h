@@ -5,7 +5,6 @@
  * @see solver.h для определения структур coeff и roots
  */
 
-#include <stdio.h>
 
 /** @defgroup constants Константы программы */
 
