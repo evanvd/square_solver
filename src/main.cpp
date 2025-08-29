@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 {
     if (search_flag(argc, argv,"--embedded_test"))
     {
-        run_all_test();
+        run_embedded_test();
         return 0;
     }
     if (search_flag(argc, argv,"--test_file"))

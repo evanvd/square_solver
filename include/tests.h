@@ -8,6 +8,6 @@
  */
 void run_from_file(const char* filename);
 bool read_from_file(checkEquation * Equation, const char* filename, size_t* size);
-void run_all_test();
+void run_embedded_test();
 void run_test(checkEquation equation);
-bool check_case(coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer);
+bool check_solution(coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer);

@@ -41,8 +41,9 @@
  * @note Для TWO_ROOTS проверяет оба порядка корней (x1,x2 и x2,x1)
  */
 
-bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
+bool check_solution (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 {
+    // TODO my_assert
     *ActualAnswer = {NAN, NAN, Error};
     ActualAnswer->nroots = num_root(CheckCoeff, ActualAnswer);
 
@@ -83,7 +84,7 @@ bool check_case (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 void run_test(checkEquation equation)
 {
     roots actualAnswer;
-    if(check_case(equation.CheckCoeff, equation.RightAnswer, &actualAnswer))
+    if(check_solution(equation.CheckCoeff, equation.RightAnswer, &actualAnswer))
     {
         color_printf(GREEN,"PASSED (%lg %lg %lg)\n", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c);
     }
@@ -124,7 +125,7 @@ void run_test(checkEquation equation)
  */
 
 
-void run_all_test()
+void run_embedded_test()
 {
     struct checkEquation testEquation[] =
     {
@@ -173,7 +174,7 @@ bool read_from_file(checkEquation* Equation, const char* filename, size_t* testC
 
 void run_from_file(const char* filename)
 {
-    size_t testCount = 1000; //Max count of tests (временно)
+    size_t testCount = 1000; //Max count of tests
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
 
     if(!read_from_file(testEquation, filename,&testCount) || testEquation == NULL)

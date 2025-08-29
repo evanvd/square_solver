@@ -34,6 +34,7 @@
  */
 void color_printf(const char* color, const char* format, ...)
 {
+
     printf("%s", color);
     va_list args;
     va_start(args, format);

@@ -54,7 +54,7 @@ rootsCount num_root(coeff coeff, roots* roots)
     return solve_quadratic(coeff, roots);
 }
 
-rootsCount solve_linear( coeff coeff, roots* roots)
+rootsCount solve_linear(coeff coeff, roots* roots)
 {
     if (fabs(coeff.b) < EPS)
     {
