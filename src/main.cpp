@@ -28,7 +28,7 @@ int main(int argc, char **argv)
         return 0;
     }
     print_welcome();
-    color_printf(BLUE,"Введите коэффициенты квадратного уравнения вида ax^2+bx+cJ:\n ");
+    color_printf(BLUE,"Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 
     coeff coeff = {NAN, NAN, NAN};
     bool isCorrectInput = scan_check(&coeff.a, &coeff.b, &coeff.c);
@@ -41,5 +41,6 @@ int main(int argc, char **argv)
     roots.nroots = num_root(coeff, &roots);
 
     print_roots(roots);
+    printf("Hui");
     return 0;
 }

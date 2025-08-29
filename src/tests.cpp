@@ -17,6 +17,8 @@
 #include "../include/tests.h"
 #include "../include/IO.h"
 
+// TODO -I gcc flag
+
 /** @defgroup testing Функции тестирования */
 
 /**
@@ -141,26 +143,8 @@ void run_all_test()
     }
 }
 
-rootsCount check_num_root(int nroot)
+bool read_from_file(checkEquation* Equation, const char* filename)
 {
-    switch(nroot)
-    {
-        case 1:
-            return OneRoot;
-        case 2:
-            return TwoRoots;
-        case 0:
-            return ZeroRoots;
-        case -1:
-            return InfiniteRoots;
-        default:
-            return Error;
-    }
-}
-
-bool read_from_file(checkEquation* Equation , const char* filename) // TODO считывать количество корней
-{
-    int nroot = -2;
     if (filename == NULL)
     {
         color_printf(RED, "Ошибка\n");
@@ -178,8 +162,7 @@ bool read_from_file(checkEquation* Equation , const char* filename) // TODO сч
     {
         fscanf(file, "%lg %lg %lg %lg %lg %d", &Equation[testNum].CheckCoeff.a,
                &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
-               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2, &nroot);
-        Equation[testNum].RightAnswer.nroots = check_num_root(nroot);
+               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2, &Equation[testNum].RightAnswer.nroots);
     }
 
     fclose(file);
@@ -190,8 +173,10 @@ bool read_from_file(checkEquation* Equation , const char* filename) // TODO сч
 
 void run_from_file(const char* filename)
 {
-    const int testCount = 10; // TODO
+    const int testCount = 10; // TODO read it from file (1st)
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
+
+    // TODO check calloc result
 
     if(!read_from_file(testEquation, filename) || testEquation == NULL)
     {
@@ -199,12 +184,10 @@ void run_from_file(const char* filename)
         return;
     }
 
-    else
+    for(int testNumber = 0; testNumber < testCount; testNumber++)
     {
-        for(int testNumber = 0; testNumber < testCount-1; testNumber++)
-        {
-            run_test(testEquation[testNumber]);
-        }
+        run_test(testEquation[testNumber]);
     }
+
     free(testEquation);
 }

@@ -13,11 +13,13 @@
 - Подробные сообщения об ошибках
 
 ## Установка
-`git clone https://github.com/evanvd/square_solver.git`
+```
+git clone https://github.com/evanvd/square_solver.git
 
-`cd square_solver`
+cd square_solver
 
-`make`
+make
+```
 
 ### требования
 
@@ -27,7 +29,7 @@
 
 ## Использование программы:
 
-### Опции командной строки
+### Опции makefile
 - make - скомпилировать программу
 - make doc - сгенерировать документацию
 - make exec - запустить программу
