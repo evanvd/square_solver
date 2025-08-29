@@ -13,7 +13,7 @@
  * @brief Точность сравнения чисел с плавающей точкой
  * @ingroup constants
  */
-const double EPS = 1e-6;
+const double EPS = 1e-10;
 
 /**
  * @brief Перечисление возможных количеств корней
@@ -59,3 +59,4 @@ rootsCount solve_linear(coeff coeff, roots* roots);
 rootsCount solve_quadratic(coeff coeff, roots* roots);
 rootsCount num_root(coeff coeff, roots* roots);
 
+rootsCount check_num_root(int nroot);

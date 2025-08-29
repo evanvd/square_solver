@@ -141,8 +141,26 @@ void run_all_test()
     }
 }
 
-bool read_from_file(checkEquation* Equation , const char* filename)
+rootsCount check_num_root(int nroot)
 {
+    switch(nroot)
+    {
+        case 1:
+            return OneRoot;
+        case 2:
+            return TwoRoots;
+        case 0:
+            return ZeroRoots;
+        case -1:
+            return InfiniteRoots;
+        default:
+            return Error;
+    }
+}
+
+bool read_from_file(checkEquation* Equation , const char* filename) // TODO считывать количество корней
+{
+    int nroot = -2;
     if (filename == NULL)
     {
         color_printf(RED, "Ошибка\n");
@@ -158,9 +176,10 @@ bool read_from_file(checkEquation* Equation , const char* filename)
 
     for (int testNum = 0; testNum < 10; testNum++)
     {
-        fscanf(file, "%lg %lg %lg %lg %lg", &Equation[testNum].CheckCoeff.a,
+        fscanf(file, "%lg %lg %lg %lg %lg %d", &Equation[testNum].CheckCoeff.a,
                &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
-               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2);
+               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2, &nroot);
+        Equation[testNum].RightAnswer.nroots = check_num_root(nroot);
     }
 
     fclose(file);
@@ -171,7 +190,7 @@ bool read_from_file(checkEquation* Equation , const char* filename)
 
 void run_from_file(const char* filename)
 {
-    const int testCount = 10;
+    const int testCount = 10; // TODO
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
 
     if(!read_from_file(testEquation, filename) || testEquation == NULL)

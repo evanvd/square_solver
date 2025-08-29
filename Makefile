@@ -16,11 +16,11 @@ $(TARGET): $(OBJ)
 	$(CC) $(SOURCES) -o $(PREF_OBJ)$(TARGET) $(FLAGS)
 
 execute:
-	$(PREF_SRC)$(OUT)
+	$(PREF_OBJ)$(OUT)
 
 doc:
 	doxygen
-	firefox /html/index.html
+	firefox html/index.html
 
 $(PREF_OBJ)%.o : %.cpp
 	$(CC) -c $< $@ $(FLAGS)
