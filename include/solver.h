@@ -59,4 +59,3 @@ rootsCount solve_linear(coeff coeff, roots* roots);
 rootsCount solve_quadratic(coeff coeff, roots* roots);
 rootsCount num_root(coeff coeff, roots* roots);
 
-rootsCount check_num_root(int nroot);

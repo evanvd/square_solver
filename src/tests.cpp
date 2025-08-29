@@ -143,7 +143,7 @@ void run_all_test()
     }
 }
 
-bool read_from_file(checkEquation* Equation, const char* filename)
+bool read_from_file(checkEquation* Equation, const char* filename, size_t* testCount)
 {
     if (filename == NULL)
     {
@@ -157,12 +157,12 @@ bool read_from_file(checkEquation* Equation, const char* filename)
         color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
         return false;
     }
-
-    for (int testNum = 0; testNum < 10; testNum++)
+    fscanf(file,"%lu", testCount);
+    for (size_t testNum = 0; testNum < *testCount; testNum++)
     {
         fscanf(file, "%lg %lg %lg %lg %lg %d", &Equation[testNum].CheckCoeff.a,
                &Equation[testNum].CheckCoeff.b,  &Equation[testNum].CheckCoeff.c,
-               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2, &Equation[testNum].RightAnswer.nroots);
+               &Equation[testNum].RightAnswer.x1, &Equation[testNum].RightAnswer.x2,  (int*)&Equation[testNum].RightAnswer.nroots);
     }
 
     fclose(file);
@@ -173,18 +173,18 @@ bool read_from_file(checkEquation* Equation, const char* filename)
 
 void run_from_file(const char* filename)
 {
-    const int testCount = 10; // TODO read it from file (1st)
+    size_t testCount = 1000; //Max count of tests (временно)
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
 
     // TODO check calloc result
 
-    if(!read_from_file(testEquation, filename) || testEquation == NULL)
+    if(!read_from_file(testEquation, filename,&testCount) || testEquation == NULL)
     {
         printf("ERROR\n");
         return;
     }
 
-    for(int testNumber = 0; testNumber < testCount; testNumber++)
+    for(size_t testNumber = 0; testNumber < testCount; testNumber++)
     {
         run_test(testEquation[testNumber]);
     }
