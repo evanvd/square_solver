@@ -142,26 +142,27 @@ void run_embedded_test()
     }
 }
 
-bool read_from_file(checkEquation* Equation, const char* filename, size_t* testCount)
+bool read_from_file(checkEquation* Equation, const char* filename, size_t* testCount, FILE* file)
 {
+
     if (filename == NULL)
     {
         color_printf(RED, "Ошибка\n");
         return false;
     }
 
-    FILE* file = fopen(filename, "r");
     if (file == NULL)
     {
         color_printf(RED, "Ошибка: Не удалось открыть файл '%s'\n", filename);
         return false;
     }
-    fscanf(file,"%lu", testCount);
-    if (*testCount > 1000)
+    const size_t trollTestCount = 1000;
+    if (*testCount > trollTestCount)
     {
         achievement();
         return false;
     }
+
     for (size_t testNum = 0; testNum < *testCount; testNum++)
     {
         fscanf(file, "%lg %lg %lg %lg %lg %d", &Equation[testNum].CheckCoeff.a,
@@ -178,10 +179,13 @@ bool read_from_file(checkEquation* Equation, const char* filename, size_t* testC
 
 void run_from_file(const char* filename)
 {
-    size_t testCount = 1000; //Max count of tests. It useful trust me
+    size_t testCount = 0;
+    FILE* file = fopen(filename, "r");
+    fscanf(file,"%lu", &testCount);
+
     checkEquation* testEquation = (checkEquation*)calloc(testCount, sizeof(checkEquation));
 
-    if(!read_from_file(testEquation, filename,&testCount) || testEquation == NULL)
+    if(!read_from_file(testEquation, filename,&testCount, file) || testEquation == NULL)
     {
         printf("ERROR\n");
         free(testEquation);

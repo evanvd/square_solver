@@ -7,7 +7,7 @@
  * @see solver.h для определения структур coeff и roots
  */
 void run_from_file(const char* filename);
-bool read_from_file(checkEquation * Equation, const char* filename, size_t* size);
+bool read_from_file(checkEquation * Equation, const char* filename, size_t* size, FILE* file);
 void run_embedded_test();
 void run_test(checkEquation equation);
 bool check_solution(coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer);

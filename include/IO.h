@@ -13,6 +13,13 @@
 #define BLUE    "\033[1;34m"
 #define RESET   "\033[0m"
 
+enum CompareResult
+{
+    GREATER = 1,
+    LESS = -1,
+    EQUAL = 0,
+};
+
 /**
  * @brief Выводит цветной текст в терминал
  * @ingroup input_output
@@ -23,6 +30,7 @@
  */
 
 void color_printf(const char* color, const char* format, ...);
+
 
 /**
  * @brief Выводит приветственное сообщение
