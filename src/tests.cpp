@@ -46,7 +46,7 @@ bool check_solution (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
     *ActualAnswer = {NAN, NAN, Error};
     ActualAnswer->nroots = num_root(CheckCoeff, ActualAnswer);
 
-    if(fabs(ActualAnswer->nroots - RightAnswer.nroots) < EPS ) // TODO do func CompareDouble(), here useless
+    if(ActualAnswer->nroots == RightAnswer.nroots)
     {
         if(ActualAnswer->nroots < OneRoot)
         {
@@ -82,7 +82,7 @@ bool check_solution (coeff CheckCoeff, roots RightAnswer, roots* ActualAnswer)
 
 void run_test(checkEquation equation)
 {
-    roots actualAnswer; // TODO init
+    roots actualAnswer ={};
     if(check_solution(equation.CheckCoeff, equation.RightAnswer, &actualAnswer))
     {
         color_printf(GREEN,"PASSED (%lg %lg %lg)\n", equation.CheckCoeff.a, equation.CheckCoeff.b, equation.CheckCoeff.c);
@@ -126,7 +126,7 @@ void run_test(checkEquation equation)
 
 void run_embedded_test()
 {
-    struct checkEquation testEquation[] =
+    checkEquation testEquation[] =
     {
         {.CheckCoeff = {1, -5,  6}, . RightAnswer = {3,   2,   TwoRoots}},
         {.CheckCoeff = {2, -4,  2},  .RightAnswer = {1,   NAN, OneRoot}},

@@ -21,11 +21,13 @@ int main(int argc, char **argv)
         run_embedded_test();
         return 0;
     }
+
     if (search_flag(argc, argv,"--test_file"))
     {
         run_from_file("test.txt");
         return 0;
     }
+
     print_welcome();
     color_printf(BLUE,"Введите коэффициенты квадратного уравнения вида ax^2+bx+c:\n ");
 
